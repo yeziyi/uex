@@ -1,0 +1,28 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\TencentGameToolsV10\\unexpe-master3\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v14\\values-v14.xml",
+            "map": [
+                {
+                    "source": "E:\\TencentGameToolsV10\\unexpe-master3\\app\\src\\main\\res\\values-v14\\styles.xml",
+                    "from": {
+                        "startLines": "8,12",
+                        "startColumns": "4,4",
+                        "startOffsets": "226,382",
+                        "endLines": "10,12",
+                        "endColumns": "12,105",
+                        "endOffsets": "374,483"
+                    },
+                    "to": {
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,206",
+                        "endLines": "4,5",
+                        "endColumns": "12,98",
+                        "endOffsets": "201,300"
+                    }
+                }
+            ]
+        }
+    ]
+}
