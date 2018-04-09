@@ -1,11 +1,5 @@
 package com.smartapp.rootuninstaller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -37,7 +31,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -45,7 +38,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.smartapp.rootuninstaller.comparator.DateAscendingComparator;
@@ -57,11 +49,17 @@ import com.smartapp.rootuninstaller.comparator.NameDescendingComparator;
 import com.smartapp.rootuninstaller.comparator.SizeAscendingComparator;
 import com.smartapp.rootuninstaller.comparator.SizeDescendingComparator;
 import com.smartapp.rootuninstaller.ui.IPagerAdapter;
-import com.smartapp.rootuninstaller.ui.TitlePagerActionBar;
 import com.smartapp.rootuninstaller.util.AppUninstaller;
 import com.smartapp.rootuninstaller.util.MainDataController;
 import com.smartapp.rootuninstaller.util.RootShell;
 import com.smartapp.rootuninstaller.util.Util;
+import com.viewpagerindicator.TitlePageIndicator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 主界面，管理3个列表
@@ -69,7 +67,6 @@ import com.smartapp.rootuninstaller.util.Util;
  * @author xiedezhi
  */
 public class MainActivity extends Activity {
-    private TitlePagerActionBar mPagerActionBar;
 
     private ViewPager mViewPager;
     private IPagerAdapter mPagerAdapter;
@@ -249,7 +246,6 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
         MobileAds.initialize(this, "ca-app-pub-6335053266754945/4337732515");
-        mPagerActionBar = (TitlePagerActionBar) findViewById(R.id.pager_action_bar);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -380,8 +376,25 @@ public class MainActivity extends Activity {
         mViewPager.setPageMargin(Util.dip2px(MainActivity.this, 10));
         mViewPager.setPageMarginDrawable(new ColorDrawable(0xFF4d4d4d));
 
-        mPagerActionBar.attachToViewPager(mViewPager);
         mViewPager.setCurrentItem(0);
+        final TitlePageIndicator titleIndicator = (TitlePageIndicator) findViewById(R.id.titles);
+        titleIndicator.setViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                titleIndicator.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                titleIndicator.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                titleIndicator.onPageScrollStateChanged(state);
+            }
+        });
 
         mUserAppAdapter = new IListAdapter(MainActivity.this,
                 IListAdapter.ADAPTER_TYPE_USERAPP, mHandler);
